@@ -3,7 +3,7 @@ package game.model.physics
 class Player(inputLocation: PhysicsVector,
              inputVelocity: PhysicsVector) extends PhysicalObject(inputLocation, inputVelocity) {
 
-  val speed: Double = 5.0
+  val speed: Double = 6.5
   var points: Int = 0
 
   def move(direction: PhysicsVector){

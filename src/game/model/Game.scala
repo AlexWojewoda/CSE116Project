@@ -13,7 +13,7 @@ class Game {
   var players: Map[String, Player] = Map()
   val playerSize: Double = 0.3
   var lastUpdateTime: Long = System.nanoTime()
-  val goal = 2
+  val goal = 5
 
   blockTile(0, 0, gridWidth, gridHeight)
 
@@ -23,7 +23,6 @@ class Game {
   var startingLocation = new GridLocation(scala.util.Random.nextInt(gridWidth), scala.util.Random.nextInt(gridHeight))
   bases = bases :+ new GridLocation(scala.util.Random.nextInt(gridWidth), scala.util.Random.nextInt(gridHeight))
 
-
   def addPlayer(id: String): Unit = {
     val player = new Player(startingVector(), new PhysicsVector(0, 0))
     players += (id -> player)
@@ -32,7 +31,6 @@ class Game {
     bases = bases :+ new GridLocation(scala.util.Random.nextInt(gridWidth), scala.util.Random.nextInt(gridHeight))
     blockTile(0, 0, gridWidth, gridHeight)
   }
-
 
   def removePlayer(id: String): Unit = {
     players(id).destroy()
@@ -74,8 +72,6 @@ class Game {
       "players" -> Json.toJson(this.players.map({ case (k, v) => Json.toJson(Map(
         "x" -> Json.toJson(v.location.x),
         "y" -> Json.toJson(v.location.y),
-        "v_x" -> Json.toJson(v.velocity.x),
-        "v_y" -> Json.toJson(v.velocity.y),
         "pts"-> Json.toJson(v.points),
         "id" -> Json.toJson(k))) }))
     )
@@ -85,14 +81,8 @@ class Game {
 
   def checkForHit(): Unit = {
     for (base <- bases) {
-      val ul = new PhysicsVector(base.x, base.y)
-      val ur = new PhysicsVector(base.x + 1, base.y)
-      val lr = new PhysicsVector(base.x + 1, base.y + 1)
-      val ll = new PhysicsVector(base.x, base.y + 1)
-      val width = ul.distance2d(ur)
-      val height = ul.distance2d(ll)
-      val center_x = base.x + (.5 * width)
-      val center_y = base.y + (.5 * height)
+      val center_x = base.x + .5
+      val center_y = base.y + .5
       val center = new PhysicsVector(center_x, center_y)
       players.values.foreach(player => if (player.location.distance2d(center) < playerSize) {
         player.points += 1

@@ -15,8 +15,8 @@ function parseGameState(event) {
 
     for (let player of gameState['players']) {
         n += 1;
-        placeCircle(player['x'], player['y'], player['id'] === socket.id ? 'red' : 'blue', 2.0);
-        placeSquare(gameState['bases'][n]['x'], gameState['bases'][n]['y'], '#ffffff');
+        placeCircle(player['x'], player['y'], player['id'] === socket.id ? 'red' : 'blue', 3.5);
+        drawSquare(gameState['bases'][n]['x'], gameState['bases'][n]['y'], '#ffffff');
         if(player["id"] === socket.id) {
             ctx.font = "20px Arial";
             ctx.fillStyle = "black";
@@ -73,7 +73,7 @@ function drawGameBoard(gridSize) {
 
 }
 
-function placeSquare(x, y, color) {
+function drawSquare(x, y, color) {
     ctx.fillStyle = color;
     ctx.fillRect(x * tileSize, y * tileSize, tileSize, tileSize);
     ctx.strokeStyle = 'black';
