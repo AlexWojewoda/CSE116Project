@@ -7,8 +7,6 @@ import akka.io.{IO, Tcp}
 import akka.util.ByteString
 import play.api.libs.json.{JsValue, Json}
 
-
-
 class TCPSocketServer(gameActor: ActorRef) extends Actor {
 
   import Tcp._
@@ -47,7 +45,6 @@ class TCPSocketServer(gameActor: ActorRef) extends Actor {
       this.webServers.foreach((client: ActorRef) => client ! Write(ByteString(gs.gameState + delimiter)))
   }
 
-
   def handleMessageFromWebServer(messageString:String):Unit = {
     val message: JsValue = Json.parse(messageString)
     val username = (message \ "username").as[String]
@@ -66,16 +63,11 @@ class TCPSocketServer(gameActor: ActorRef) extends Actor {
 
 }
 
-
 object TCPSocketServer {
-
   def main(args: Array[String]): Unit = {
     val actorSystem = ActorSystem()
-
     import actorSystem.dispatcher
-
     import scala.concurrent.duration._
-
     val gameActor = actorSystem.actorOf(Props(classOf[GameActor]))
     val server = actorSystem.actorOf(Props(classOf[TCPSocketServer], gameActor))
 

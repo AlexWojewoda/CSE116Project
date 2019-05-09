@@ -1,7 +1,5 @@
 package game.model.physics
 
-import game.model.Boundary
-
 object Physics {
   def computePotentialLocation(a: PhysicalObject, deltaTime: Double): PhysicsVector ={
     var xpos: Double = a.location.x + (a.velocity.x * deltaTime)
@@ -36,32 +34,6 @@ object Physics {
     else {
       true
     }
-//    import java.awt.geom.Line2D
-//    val line1 = new Line2D.Double(b.startpt.x, b.startpt.y, b.endpt.x, b.endpt.y)
-//    val line2 = new Line2D.Double(a.location.x, a.location.y, pLoc.x, pLoc.y)
-//    val result = line2.intersectsLine(line1)
-//    if(result == true){
-//      false
-//    }
-//    else{
-//      true
-//    }
-
-
-//        var ax = b.endpt.x - b.startpt.x
-//        var bx = pLoc.x - a.location.x
-//        var ay = b.endpt.y - b.startpt.y
-//        var by = pLoc.y - a.location.y
-//
-//        var c = -ay * (b.startpt.x - a.location.x) + ax * (b.startpt.y - a.location.y) / (-bx * ay + ax * by)
-//        var d = bx * (b.startpt.y - a.location.y) - by * (b.startpt.x - a.location.x) / (-bx * ay + ax * by)
-//
-//        if(c >= 0 && c <= 1 && d >= 0 && d <= 1){
-//          false
-//        }
-//        else{
-//          true
-//        }
   }
 
   def updateWorld(w: World, deltaTime: Double): Unit ={
@@ -117,46 +89,3 @@ object Physics {
   }
 
 }
-
-
-//def main(args: Array[String]): Unit ={
-//    var w: World = new World(9.8)
-//    var location: PhysicsVector = new PhysicsVector(10, 10, 5)
-//    var velocity: PhysicsVector = new PhysicsVector(5, 3, 1)
-//    var one: PhysicalObject = new PhysicalObject(location, velocity)
-//    var loc: PhysicsVector = new PhysicsVector(3, 4, 1)
-//    var vel: PhysicsVector = new PhysicsVector(2, 4, 5)
-//    var two: PhysicalObject = new PhysicalObject(loc, vel)
-//    updateVelocity(two, w, 10.0)
-//    println(two.velocity.z)
-//  }
-
-////val line: Double = sqrt(pow(b.endpt1.x - b.endpt2.x, 2.0) + pow(b.endpt1.y - b.endpt2.y ,2.0))
-//    val dx: Double = pLoc.x - b.endpt1.x
-//    val dy: Double = pLoc.y - b.endpt1.y
-//    val dx1: Double = b.endpt2.x - b.endpt1.x
-//    val dy1: Double = b.endpt2.y - b.endpt2.y
-//    val line: Double = dx * dy1 - dy * dx1
-//    if (line == 0){
-//        false
-//    }
-//    else{
-//      true
-
-//    var ax = b.endpt.x - b.startpt.x
-//    var bx = pLoc.x - a.location.x
-//    var ay = b.endpt.y - b.startpt.y
-//    var by = pLoc.y - a.location.y
-//
-//    var c = -ay * (b.startpt.x - a.location.x) + ax * (b.startpt.y - a.location.y) / (-bx * ay + ax * by)
-//    var d = bx * (b.startpt.y - a.location.y) - by * (b.startpt.x - a.location.x) / (-bx * ay + ax * by)
-//
-//    if(c >= 0 && c <= 1 && d >= 0 && d <= 1){
-//      false
-//    }
-//    else{
-//      true
-//    }
-
-//import scala.math.sqrt
-//import scala.math.pow

@@ -24,7 +24,7 @@ class Game {
   bases = bases :+ new GridLocation(scala.util.Random.nextInt(gridWidth), scala.util.Random.nextInt(gridHeight))
 
   def addPlayer(id: String): Unit = {
-    val player = new Player(startingVector(), new PhysicsVector(0, 0))
+    val player = new Player(new PhysicsVector(startingLocation.x + 0.5, startingLocation.y + 0.5, 0.0), new PhysicsVector(0, 0, 0))
     players += (id -> player)
     world.objects = player :: world.objects
     startingLocation = new GridLocation(scala.util.Random.nextInt(gridWidth), scala.util.Random.nextInt(gridHeight))
@@ -38,10 +38,10 @@ class Game {
   }
 
   def blockTile(x: Int, y: Int, width: Int = 1, height: Int = 1): Unit = {
-    val ul = new PhysicsVector(x, y)
-    val ur = new PhysicsVector(x + width, y)
-    val lr = new PhysicsVector(x + width, y + height)
-    val ll = new PhysicsVector(x, y + height)
+    val ul = new PhysicsVector(x, y, 0)
+    val ur = new PhysicsVector(x + width, y, 0)
+    val lr = new PhysicsVector(x + width, y + height, 0)
+    val ll = new PhysicsVector(x, y + height, 0)
 
     world.boundaries ::= new Boundary(ul, ur)
     world.boundaries ::= new Boundary(ur, lr)
@@ -49,15 +49,10 @@ class Game {
     world.boundaries ::= new Boundary(ll, ul)
   }
 
-// SWAP STARTING VEC WITH STARTLOC RANDOM??
-  def startingVector(): PhysicsVector = {
-    new PhysicsVector(startingLocation.x + 0.5, startingLocation.y + 0.5)
-  }
-
   def update(): Unit = {
     val time: Long = System.nanoTime()
-    val dt = (time - this.lastUpdateTime) / 1000000000.0
-    Physics.updateWorld(this.world, dt)
+    val delta = (time - this.lastUpdateTime) / 1000000000.0
+    Physics.updateWorld(this.world, delta)
     checkPts()
     checkForHit()
     this.lastUpdateTime = time
@@ -83,7 +78,7 @@ class Game {
     for (base <- bases) {
       val center_x = base.x + .5
       val center_y = base.y + .5
-      val center = new PhysicsVector(center_x, center_y)
+      val center = new PhysicsVector(center_x, center_y, 0.0)
       players.values.foreach(player => if (player.location.distance2d(center) < playerSize) {
         player.points += 1
         bases -= base
