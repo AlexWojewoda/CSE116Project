@@ -1,6 +1,7 @@
 package game.model
 
 import akka.actor.{Actor, ActorRef}
+import game._
 import game.model.physics.PhysicsVector
 
 

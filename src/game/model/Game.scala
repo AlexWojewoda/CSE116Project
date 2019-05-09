@@ -1,7 +1,7 @@
 package game.model
 
-import play.api.libs.json.{JsValue, Json}
 import game.model.physics._
+import play.api.libs.json.{JsValue, Json}
 
 import scala.collection.mutable.ListBuffer
 

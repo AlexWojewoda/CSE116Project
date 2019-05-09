@@ -1,5 +1,7 @@
 package game.model.physics
 
+import game.model.Boundary
+
 object Physics {
   def computePotentialLocation(a: PhysicalObject, deltaTime: Double): PhysicsVector ={
     var xpos: Double = a.location.x + (a.velocity.x * deltaTime)
